@@ -7,6 +7,7 @@ var messageDisplay = document.querySelector("#message");
 var h1 = document.querySelector("h1");
 var resetButton = document.querySelector("#reset");
 var modeButtons = document.querySelectorAll(".mode");
+var counter = 0;
 
 init();
 
@@ -52,10 +53,29 @@ function setUpSquares(){
 				resetButton.textContent = "Play Again?";
 				changeColors(clickedColor);
 				h1.style.backgroundColor = clickedColor;
+				counter = 0;
 
 			} else {
-				this.style.backgroundColor = "#232323";
-				messageDisplay.textContent = "Try Again!";
+				if( counter >= 2 || clickedColor == "rgb(217, 83, 79)"){
+					clickedColor = "rgb(217, 83, 79)";
+					messageDisplay.textContent = "Defeated!";
+					resetButton.textContent = "Play Again?";
+					changeColors(clickedColor);
+					h1.style.backgroundColor = clickedColor;
+					counter = 0;
+				} else {
+					counter++;
+					this.style.backgroundColor = "#232323";
+					switch(counter){
+						case 1:
+							messageDisplay.textContent = "Two Tries Left!";
+							break;
+						case 2:
+							messageDisplay.textContent = "One Try Left!";
+							break;		
+					}
+					console.log(counter);
+				}
 			}
 		});
 	}
